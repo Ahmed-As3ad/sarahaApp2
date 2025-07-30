@@ -6,7 +6,6 @@ import path from 'node:path'
 import * as dotenv from 'dotenv'
 import auth from './middleware/authentication.js'
 import { roleEnum } from './DB/models/User.model.js'
-import nodemailer from 'nodemailer'
 
 const bootstrap = async () => {
     const app = express()
