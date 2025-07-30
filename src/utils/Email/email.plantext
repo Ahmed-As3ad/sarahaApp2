@@ -1,0 +1,27 @@
+<div style="display: flex; flex-direction: row; width: 100%;">
+                    <img style="object-fit: cover; width: 200px; height: 200px; border-radius: 8px 0 0 8px;" src="https://codingmirror.com/media/articles/2022/03/09/otp.png" alt="OTP Image">
+                    <div style="display: flex; flex-direction: column; justify-content: space-between; padding: 16px; flex: 1;">
+                        <h5 style="margin-bottom: 8px; font-size: 24px; font-weight: bold; color: #111827; text-align: center; margin-top: 0;">Confirmation Email✉️</h5>
+                        <p style="margin-bottom: 12px; font-weight: normal; color: #60a5fa; margin-top: 0;">you will can't login before confirm your Email❌</p>
+                        <p style="margin-bottom: 12px; font-weight: normal; color: #f87171; text-align: center; margin-top: 0;">OTP Valid only for 3 minutes</p>
+                        
+                        <div style="max-width: 300px; margin: 0 auto;">
+                            <div style="display: flex; margin-bottom: 8px; gap: 8px; justify-content: center;">
+                                <div>
+                                    <input type="text" maxlength="1" style="display: block; width: 36px; height: 36px; padding: 12px 0; font-size: 14px; font-weight: 800; text-align: center; color: #111827; background-color: white; border: 1px solid #d1d5db; border-radius: 8px; outline: none;" readonly />
+                                </div>
+                                <div>
+                                    <input type="text" maxlength="1" style="display: block; width: 36px; height: 36px; padding: 12px 0; font-size: 14px; font-weight: 800; text-align: center; color: #111827; background-color: white; border: 1px solid #d1d5db; border-radius: 8px; outline: none;" readonly />
+                                </div>
+                                <div>
+                                    <input type="text" maxlength="1" style="display: block; width: 36px; height: 36px; padding: 12px 0; font-size: 14px; font-weight: 800; text-align: center; color: #111827; background-color: white; border: 1px solid #d1d5db; border-radius: 8px; outline: none;" readonly />
+                                </div>
+                                <div>
+                                    <input type="text" maxlength="1" style="display: block; width: 36px; height: 36px; padding: 12px 0; font-size: 14px; font-weight: 800; text-align: center; color: #111827; background-color: white; border: 1px solid #d1d5db; border-radius: 8px; outline: none;" readonly />
+                                </div>
+                            </div>
+                            <p style="margin-top: 8px; font-size: 14px; color: #6b7280; text-align: center; margin-bottom: 0;">Please introduce the 4 digit code we sent via email.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
