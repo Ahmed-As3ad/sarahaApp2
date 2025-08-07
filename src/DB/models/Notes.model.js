@@ -17,7 +17,7 @@ const NotesSchema = mongoose.Schema({
     },
     userId: {
         type: mongoose.Schema.ObjectId,
-        ref: "Users",
+        ref: "User",
         required: true
     },
 }, {

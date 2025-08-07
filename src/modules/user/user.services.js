@@ -35,15 +35,13 @@ export const shareProfile = async (req, res, next) => {
 export const freezeAccount = async (req, res, next) => {
     const { userId } = req.params;
     
-    if (userId && req.user.role !== roleEnum.Admin) {
+    if (userId && req?.user?.role !== roleEnum.Admin) {
         throw new Error('Access declined!', { cause: 403 });
     }
     
-    const targetUserId = userId || req.user._id;
-    
     const user = await UserModel.findOneAndUpdate(
-        { _id: targetUserId, deletedAt: { $exists: false } },
-        { deletedAt: Date.now(), deletedBy: req.user._id },
+        { _id: userId || req?.user?._id, deletedAt: { $exists: false } },
+        { deletedAt: Date.now(), deletedBy: req?.user?._id },
         { new: true }
     );
     

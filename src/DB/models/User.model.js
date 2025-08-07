@@ -12,6 +12,7 @@ export const genderEnum = {
     male: "male",
     female: "female"
 }
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
