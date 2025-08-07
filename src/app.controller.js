@@ -6,6 +6,8 @@ import path from 'node:path'
 import * as dotenv from 'dotenv'
 import auth from './middleware/authentication.js'
 import { roleEnum } from './DB/models/User.model.js'
+import { authorization } from './middleware/authorization.js'
+import { endpoint } from './modules/user/endpoint.js'
 
 const bootstrap = async () => {
     const app = express()
@@ -17,7 +19,7 @@ const bootstrap = async () => {
     connection()
 
 
-    app.use('/user', auth([roleEnum.Admin]), userController)
+    app.use('/user', userController)
     app.use('/auth', authController)
     app.get('/', (req, res) => res.send('Hello World!'))
     app.use((error, req, res, next) => {

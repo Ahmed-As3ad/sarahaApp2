@@ -8,6 +8,10 @@ export const providerEnum = {
     System: "System",
     Google: "Google"
 }
+export const genderEnum = {
+    male: "male",
+    female: "female"
+}
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -17,6 +21,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         Unique: true
+    },
+    confirmedEmail: {
+        type: Boolean,
+        default: false
+    },
+    confirmEmailOTP: {
+        type: String
     },
     Password: {
         type: String,
@@ -41,6 +52,21 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: Object.values(providerEnum),
         default: providerEnum.System
+    },
+    gender: {
+        type: String,
+        enum: Object.values(genderEnum),
+        default: genderEnum.male
+    },
+    deletedAt: Date,
+    deletedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    restoredAt: Date,
+    restoredBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }
 })
 

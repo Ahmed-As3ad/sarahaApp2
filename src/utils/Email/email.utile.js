@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer'
-export const sendMail = async () => {
+
+export const sendMail = async ({ to = "", subject = "", html = "" }) => {
     const transporter = nodemailer.createTransport({
         service: "gmail",
         secure: true,
@@ -9,15 +10,16 @@ export const sendMail = async () => {
         },
     });
 
-    await transporter
+    const info = await transporter
         .sendMail({
-            from: "SyntaxDev <ahmed.as3ad48@gmail.com>",
-            to: "anaahmee48@gmail.com",
-            subject: "Hello from tests ✔",
-            text: "This message was sent from a Node.js integration test.",
-        })
-    console.log("Message sent: %s", info.messageId);
+            from: "Saraha App <ahmed.as3ad48@gmail.com>",
+            to,
+            subject,
+            html,
+        });
 
+    console.log("✅ Message sent: %s", info.messageId);
+    return info;
 }
 
 
