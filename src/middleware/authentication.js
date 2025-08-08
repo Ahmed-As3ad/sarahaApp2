@@ -1,7 +1,7 @@
 import UserModel, { roleEnum } from "../DB/models/User.model.js";
 import { Signatures, verifyToken } from "../utils/token.method.js";
 
-const auth = (accessRoles = []) => {
+const auth = () => {
     return async (req, res, next) => {
         const [bearer, token] = req?.headers?.authorization.split(" ") || [];
         console.log({ bearer, token });

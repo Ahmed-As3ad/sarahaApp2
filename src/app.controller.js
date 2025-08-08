@@ -14,16 +14,16 @@ const bootstrap = async () => {
     // DB 
     connection()
 
-
     app.use('/user', userController)
     app.use('/auth', authController)
-    app.get('/', (req, res) => res.send('Hello World!'))
+
     app.use((error, req, res, next) => {
         return res.status(error?.cause || 500).json({
             message: error.message,
             stack: process.env.MOOD === "DEV" ? error?.stack : null
         })
     })
-    app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+    app.get('/',(req,res,next)=>{res.json({message:'hello world!'})})
+    app.listen(port, () => console.log(`http://localhost:${port}`))
 }
 export default bootstrap
