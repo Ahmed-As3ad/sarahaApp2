@@ -27,9 +27,8 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    confirmEmailOTP: {
-        type: String
-    },
+    confirmEmailOTP: String,
+    otpExpiry: String,
     Password: {
         type: String,
         required: true,
