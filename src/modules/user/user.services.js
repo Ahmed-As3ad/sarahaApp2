@@ -5,14 +5,19 @@ import { compare, generateHash, verifyCrypto } from "../../utils/security/hash.m
 import { destroyFile, fileUpload } from "../../utils/multer/cloudinary.js";
 
 export const profile = async (req, res, next) => {
-    const user = await UserModel.findById(req.user.id).select('-Password');
+    const user = await UserModel.findById(req.user._id).select('-Password');
     if (!user) {
         throw new Error("User not found!", { cause: 404 });
     }
-
-    const decryptedPhone = verifyCrypto({ phone: req.user?.Phone });
+let decryptedPhone;
+    if (user.Phone) {
+        decryptedPhone = verifyCrypto({ phone: user?.Phone });
+        console.log(decryptedPhone) 
+    }
 
     const userObject = user.toObject();
+    console.log(userObject);
+    
     userObject.Phone = decryptedPhone;
 
     return res.json({

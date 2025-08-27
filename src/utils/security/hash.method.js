@@ -15,6 +15,14 @@ export const generateCrypto = ({ phone }) => {
     return cryptoPhone;
 }
 export const verifyCrypto = ({ phone, salt = process.env.CryptoHash }) => {
-    const decryptedPhone = crypto.AES.decrypt(phone, salt).toString(crypto.enc.Utf8);
-    return decryptedPhone;
+    try {
+        if (!phone || !salt) {
+            return "";
+        }
+        const decryptedPhone = crypto.AES.decrypt(phone, salt).toString(crypto.enc.Utf8);
+        return decryptedPhone || "";
+    } catch (error) {
+        console.log("Decryption error:", error.message);
+        return "";
+    }
 }

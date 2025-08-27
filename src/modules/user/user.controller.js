@@ -9,7 +9,7 @@ import { fileType} from "../../utils/multer/multer.utli.js";
 import { cloudFileUpload } from "../../utils/multer/cloud.multer.js";
 
 const router = Router()
-router.get('/profile', validate(profile), auth(), authorization({ accessRoles: [endpoint.profile] }), userService.profile)
+router.get('/profile{/:userId}', validate(profile), auth(), authorization({ accessRoles: [endpoint.profile] }), userService.profile)
 router.post('/profile-image', auth(), cloudFileUpload({ validation:fileType.image }).single('Image'), userService.changeProfileImage)
 router.get('/:userId/share', validate(profile), userService.shareProfile)
 router.delete('{/:userId}/freeze', auth(), validate(idValidation), userService.freezeAccount)
