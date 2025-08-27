@@ -14,8 +14,12 @@ const bootstrap = async () => {
     // DB 
     connection()
 
+    // routing
+    app.get('/',(req,res)=> res.json({message:'Welcome to my App❤️'}))
+    app.use('/uploads', express.static(path.resolve('./src/uploads')))
     app.use('/user', userController)
     app.use('/auth', authController)
+    app.all('{/*dummy}', (req, res) => res.status(404).json({ message: 'In-valid Path!' }))
 
     app.use((error, req, res, next) => {
         return res.status(error?.cause || 500).json({
@@ -23,7 +27,7 @@ const bootstrap = async () => {
             stack: process.env.MOOD === "DEV" ? error?.stack : null
         })
     })
-    app.get('/',(req,res,next)=>{res.json({message:'hello world!'})})
+    app.get('/', (req, res, next) => { res.json({ message: 'hello world!' }) })
     app.listen(port, () => console.log(`http://localhost:${port}`))
 }
 export default bootstrap

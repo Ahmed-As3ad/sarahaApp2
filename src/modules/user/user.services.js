@@ -168,3 +168,7 @@ export const resetPassword = async (req, res, next) => {
 
 
 }
+
+export const changeProfileImage = async (req, res, next) => {
+    res.json({ message: "Done!", data: { file: req.file } })
+}
