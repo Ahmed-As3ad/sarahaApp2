@@ -12,21 +12,21 @@ export const verifyToken = ({ token = "", secretKey = "" } = {}) => {
 
 
 export const Signatures = ({ signatureKey = typesEnum.bearer} = {}) => {
-    console.log("signature is: ", signatureKey);
+    // console.log("signature is: ", signatureKey);
     let signature = { accessSignature: undefined, refreshSignature: undefined }
 
     switch (signatureKey) {
         case typesEnum.Admin:
             signature.accessSignature = process.env.ACCESS_TOKEN_SYSTEM_SIGNATURE;
             signature.refreshSignature = process.env.REFRESH_TOKEN_SYSTEM_SIGNATURE;
-            console.log("Admin: ", signature.accessSignature);
+            // console.log("Admin: ", signature.accessSignature);
             
             break;
 
         default:
             signature.accessSignature = process.env.ACCESS_TOKEN_BEARER_SIGNATURE;
             signature.refreshSignature = process.env.REFRESH_TOKEN_BEARER_SIGNATURE;
-            console.log("User: ", signature.accessSignature);
+            // console.log("User: ", signature.accessSignature);
             break;
     }
     return signature

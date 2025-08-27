@@ -26,10 +26,10 @@ emailEvent.on("confirm-Email", async (data) => {
             `
         });
 
-        console.log(`✅ Email sent successfully to ${data.to} with OTP: ${data?.otp}`);
+        // console.log(`✅ Email sent successfully to ${data.to} with OTP: ${data?.otp}`);
         return data.otp;
     } catch (err) {
-        console.log(`❌ Failed to send confirm Email to ${data?.to}`);
+        // console.log(`❌ Failed to send confirm Email to ${data?.to}`);
         console.error("Email error:", err.message);
         throw err;
     }
