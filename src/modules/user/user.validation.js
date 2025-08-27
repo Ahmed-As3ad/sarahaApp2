@@ -9,7 +9,7 @@ export const profile = {
                 return helper.message('In-valid Account!');
             }
             return value;
-        }).required()
+        })
     })
 }
 
