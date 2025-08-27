@@ -10,7 +10,7 @@ export const profile = async (req, res, next) => {
         throw new Error("User not found!", { cause: 404 });
     }
 
-    const decryptedPhone = verifyCrypto({ phone: user.Phone });
+    const decryptedPhone = verifyCrypto({ phone: req.user?.Phone });
 
     const userObject = user.toObject();
     userObject.Phone = decryptedPhone;
