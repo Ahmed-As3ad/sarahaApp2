@@ -5,11 +5,12 @@ import { idValidation, profile, updatedPassword, forgotPassword, resetPassword }
 import { authorization } from "../../middleware/authorization.js";
 import auth from "../../middleware/authentication.js";
 import { endpoint } from "./endpoint.js";
-import { localFileUpload } from "../../utils/multer/multer.utli.js";
+import { fileType} from "../../utils/multer/multer.utli.js";
+import { cloudFileUpload } from "../../utils/multer/cloud.multer.js";
 
 const router = Router()
 router.get('/profile', validate(profile), auth(), authorization({ accessRoles: [endpoint.profile] }), userService.profile)
-router.post('/profile-image', auth(), localFileUpload({ customPath: 'User' }).single('image'), userService.changeProfileImage)
+router.post('/profile-image', auth(), cloudFileUpload({ validation:fileType.image }).single('Image'), userService.changeProfileImage)
 router.get('/:userId/share', validate(profile), userService.shareProfile)
 router.delete('{/:userId}/freeze', auth(), validate(idValidation), userService.freezeAccount)
 router.patch('{/:userId}/unfreeze', auth(), validate(idValidation), userService.unFreezeAccount)

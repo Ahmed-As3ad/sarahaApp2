@@ -29,6 +29,7 @@ const userSchema = new mongoose.Schema({
     },
     confirmEmailOTP: String,
     otpExpiry: String,
+    profileImage: { public_id: String, secure_url: String },
     Password: {
         type: String,
         required: true,

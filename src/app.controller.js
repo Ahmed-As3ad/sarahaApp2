@@ -1,6 +1,7 @@
 import express from 'express'
 import userController from './modules/user/user.controller.js'
 import authController from './modules/auth/auth.controller.js'
+import messageController from './modules/message/message.controller.js'
 import connection from './DB/connection.DB.js'
 import path from 'node:path'
 import * as dotenv from 'dotenv'
@@ -19,7 +20,8 @@ const bootstrap = async () => {
     app.use('/uploads', express.static(path.resolve('./src/uploads')))
     app.use('/user', userController)
     app.use('/auth', authController)
-    app.all('{/*dummy}', (req, res) => res.status(404).json({ message: 'In-valid Path!' }))
+    app.use('/message', messageController)
+    app.all('{/*dummy}', (req, res) => res.status(404).json({ message: 'Route not found' }))
 
     app.use((error, req, res, next) => {
         return res.status(error?.cause || 500).json({

@@ -6,7 +6,15 @@ export const generalFeilds = {
     Password: Joi.string().alphanum().min(9).max(20),
     phone: Joi.string().regex(/^01[0125][0-9]{8}$/),
     gender: Joi.string().valid(...Object.values(genderEnum)).insensitive().lowercase(),
-    otp: Joi.string().regex(/^\d{4}$/)
+    otp: Joi.string().regex(/^\d{4}$/),
+    fieldname: Joi.string().min(2).max(100),
+    originalname: Joi.string().min(2).max(100),
+    encoding: Joi.string().valid('7bit', '8bit', 'base64', 'binary'),
+    mimetype: Joi.string().min(2).max(100),
+    destination: Joi.string().min(2).max(100),
+    filename: Joi.string().min(2).max(100),
+    path: Joi.string().min(2).max(100),
+    size: Joi.number().max(5000000),
 }
 
 export const validate = (schema) => {

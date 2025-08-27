@@ -2,6 +2,10 @@ import multer from "multer"
 import fs from 'node:fs'
 import path from 'node:path'
 
+export const fileType = {
+    image: ['image/jpeg', 'image/png', 'image/gif']
+}
+
 export const localFileUpload = ({ customPath = 'general' } = {}) => {
     let basePath = `uploads/${customPath}`
 

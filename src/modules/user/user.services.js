@@ -1,7 +1,8 @@
 import { customAlphabet } from "nanoid";
 import UserModel, { roleEnum } from "../../DB/models/User.model.js";
 import { emailEvent } from "../../utils/events/email.events.js";
-import { compare, generateHash } from "../../utils/security/hash.method.js";
+import { compare, generateHash, verifyCrypto } from "../../utils/security/hash.method.js";
+import { destroyFile, fileUpload } from "../../utils/multer/cloudinary.js";
 
 export const profile = async (req, res, next) => {
     const user = await UserModel.findById(req.user.id).select('-Password');
@@ -170,5 +171,15 @@ export const resetPassword = async (req, res, next) => {
 }
 
 export const changeProfileImage = async (req, res, next) => {
-    res.json({ message: "Done!", data: { file: req.file } })
-}
+    if (!req.file) {
+        throw new Error('Image is required!', { cause: 400 })
+    }
+    const { public_id, secure_url } = await fileUpload({ file: req.file, path: `PF/${req.user?._id}` })
+    const oldUser = await UserModel.findByIdAndUpdate(req.user?._id, { profileImage: { public_id, secure_url } }, { new: false })
+    if (oldUser?.profileImage?.public_id) {
+        await destroyFile({ public_id: oldUser.profileImage.public_id })
+    }
+
+    const updatedUser = await UserModel.findById(req.user?._id).select('-Password')
+    res.json({ message: "Profile image updated successfully!", data: updatedUser })
+}   
