@@ -9,14 +9,10 @@ export const profile = async (req, res, next) => {
     if (!user) {
         throw new Error("User not found!", { cause: 404 });
     }
-let decryptedPhone;
-    if (user.Phone) {
-        decryptedPhone = verifyCrypto({ phone: user?.Phone });
-        console.log(decryptedPhone) 
-    }
+    const decryptedPhone = verifyCrypto({ phone: user?.Phone });
 
     const userObject = user.toObject();
-    console.log(userObject);
+    // console.log(userObject);
     
     userObject.Phone = decryptedPhone;
 
