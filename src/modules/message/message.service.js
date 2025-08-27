@@ -26,3 +26,12 @@ export const sendMessage = async (req, res, next) => {
         throw new Error(error, { cause: 500 })
     }
 }
+
+export const getMessages = async (req, res, next) => {
+    try {
+        const messages = await MessageModel.find({ receiverId: req.user?._id });
+        res.status(200).json({ message: "Messages retrieved successfully", data: messages });
+    } catch (error) {
+        throw new Error(error, { cause: 500 })
+    }
+}
