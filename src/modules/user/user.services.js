@@ -5,7 +5,7 @@ import { compare, generateHash, verifyCrypto } from "../../utils/security/hash.m
 import { destroyFile, fileUpload } from "../../utils/multer/cloudinary.js";
 
 export const profile = async (req, res, next) => {
-    const user = await UserModel.findById(req.user._id).select('-Password');
+    const user = await UserModel.findById(req.user._id).select('name email confirmedEmail age role gender');
     if (!user) {
         throw new Error("User not found!", { cause: 404 });
     }
