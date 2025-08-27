@@ -17,7 +17,7 @@ export const profile = async (req, res, next) => {
 }
 export const shareProfile = async (req, res, next) => {
     const { userId } = req.params;
-    const user = await UserModel.findOne({ _id: userId, confirmedEmail: true }).select('-_id name email');
+    const user = await UserModel.findOne({ _id: userId, confirmedEmail: true }).select('-_id name email confirmedEmail age role gender');
     if (!user) {
         throw new Error("User not found or email not confirmed!", { cause: 404 });
     }
