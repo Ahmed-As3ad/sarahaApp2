@@ -9,16 +9,10 @@ export const profile = async (req, res, next) => {
     if (!user) {
         throw new Error("User not found!", { cause: 404 });
     }
-    const decryptedPhone = verifyCrypto({ phone: user?.Phone });
-
-    const userObject = user.toObject();
-    // console.log(userObject);
-    
-    userObject.Phone = decryptedPhone;
 
     return res.json({
         message: "Profile retrieved successfully",
-        user: userObject
+        user: user
     });
 }
 export const shareProfile = async (req, res, next) => {
