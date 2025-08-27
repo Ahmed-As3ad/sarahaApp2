@@ -2,8 +2,5 @@ node_modules
 .vs
 .vscode
 # Environment variables
-.env.dev
-.env.prod
-.env.local
-.env.production
-.env.staging
+src/config/.env.dev
+src/config/.env.prod
