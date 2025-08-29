@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import userController from './modules/user/user.controller.js'
 import authController from './modules/auth/auth.controller.js'
 import messageController from './modules/message/message.controller.js'
@@ -10,6 +11,7 @@ const bootstrap = async () => {
     const app = express()
     const port = process.env.PORT || 3000
     app.use(express.json())
+    app.use(cors())
     // .ENV
     dotenv.config({ path: path.join('./src/config/.env.dev') })
     // DB 
