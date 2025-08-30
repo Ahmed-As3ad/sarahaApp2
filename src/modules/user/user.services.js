@@ -109,7 +109,7 @@ export const forgotPassword = async (req, res, next) => {
     if (!userExist) {
         throw new Error('In-valid Email!', { cause: 404 })
     }
-    const otp = customAlphabet('1234567890', 4)()
+    const otp = customAlphabet('1234567890', 6)()
     const confirmEmailOTP = generateHash({ password: otp })
     const updatedUser = await UserModel.findOneAndUpdate(
         { email },
