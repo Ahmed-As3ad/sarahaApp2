@@ -12,7 +12,7 @@ export const typesEnum = {
 }
 
 export const signUp = async (req, res, next) => {
-    const { name, email, Password, cPassword, Phone, age } = req.body
+    const { name, email, Password, cPassword, Phone, DOB } = req.body
     if (Password !== cPassword) {
         throw new Error("confirm Password didn't match Password");
 
@@ -25,7 +25,7 @@ export const signUp = async (req, res, next) => {
 
     const otp = customAlphabet('1234567890', 4)()
     const confirmEmailOTP = generateHash({ password: otp })
-    const newUser = await UserModel.create({ name, email, confirmEmailOTP, Password: hashPassword, Phone: cryptoPhone, age });
+    const newUser = await UserModel.create({ name, email, confirmEmailOTP, Password: hashPassword, Phone: cryptoPhone, DOB });
 
     emailEvent.emit("confirm-Email", {
         to: email,

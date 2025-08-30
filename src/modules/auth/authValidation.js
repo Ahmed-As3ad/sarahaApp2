@@ -8,7 +8,6 @@ export const signup = {
         Password: generalFeilds.Password.required(),
         cPassword: Joi.string().valid(Joi.ref('Password')).required(),
         phone: generalFeilds.phone.required(),
-        age: Joi.number().min(18).max(80).required(),
         DOB: Joi.date().less("now").required(),
         gender: generalFeilds.gender.required()
     }).required()
