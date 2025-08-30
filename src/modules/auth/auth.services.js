@@ -23,7 +23,7 @@ export const signUp = async (req, res, next) => {
     const hashPassword = generateHash({ password: Password })
     const cryptoPhone = generateCrypto({ phone: Phone })
 
-    const otp = customAlphabet('1234567890', 4)()
+    const otp = customAlphabet('1234567890', 6)()
     const confirmEmailOTP = generateHash({ password: otp })
     const newUser = await UserModel.create({ name, email, confirmEmailOTP, Password: hashPassword, Phone: cryptoPhone, DOB });
 
