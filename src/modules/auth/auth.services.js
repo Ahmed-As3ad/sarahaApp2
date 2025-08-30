@@ -64,12 +64,12 @@ export const Login = async (req, res, next) => {
     const signature = Signatures({ signatureKey: user.role != roleEnum.user ? typesEnum.Admin : typesEnum.bearer })
     const jwtid = nanoid()
     const access_token = generateToken({
-        payload: { id: user._id },
+        payload: { id: user._id,email: user.email, role: user.role },
         secretKey: signature.accessSignature,
         options: { expiresIn: +process.env.ACCESS_EXPIRES_IN || '1hr', jwtid }
     });
     const refresh_token = generateToken({
-        payload: { id: user._id },
+        payload: { id: user._id,email: user.email, role: user.role },
         secretKey: signature.refreshSignature,
         options: { expiresIn: +process.env.REFRESH_EXPIRES_IN || '7d' }
     });
