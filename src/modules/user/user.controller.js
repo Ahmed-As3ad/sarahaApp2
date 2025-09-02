@@ -1,7 +1,7 @@
 import { Router } from "express";
 import * as userService from './user.services.js'
 import { validate } from "../../middleware/validation.midleware.js";
-import { idValidation, profile, updatedPassword, forgotPassword, resetPassword, searchUserName } from "./user.validation.js";
+import { idValidation, profile, updatedPassword, forgotPassword, resetPassword, searchUserName, setBio } from "./user.validation.js";
 import { authorization } from "../../middleware/authorization.js";
 import auth from "../../middleware/authentication.js";
 import { endpoint } from "./endpoint.js";
