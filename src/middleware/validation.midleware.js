@@ -2,6 +2,7 @@ import Joi from "joi";
 import { genderEnum } from "../DB/models/User.model.js";
 export const generalFeilds = {
     name: Joi.string().min(2).max(20),
+    userName: Joi.string().min(2).max(20),
     email: Joi.string().email(),
     Password: Joi.string().alphanum().min(9).max(20),
     phone: Joi.string().regex(/^01[0125][0-9]{8}$/),
