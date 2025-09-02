@@ -177,4 +177,20 @@ export const changeProfileImage = async (req, res, next) => {
 
     const updatedUser = await UserModel.findById(req.user?._id).select('-Password')
     res.json({ message: "Profile image updated successfully!", data: updatedUser })
-}   
+}
+
+export const searchUserName = async (req, res, next) => {
+    const { username } = req.query;
+    if (!username) throw new Error('Username is required!', { cause: 400 });
+    const user = await UserModel.findOne({ username }).select('name profileImage bio role gender');
+    if (!user) throw new Error('User not found!', { cause: 404 });
+    res.json({ message: "User found!", data: user });
+}
+
+export const setBio = async (req, res, next) => {
+    const { bio } = req.body;
+    if (!bio) throw new Error('Bio is required!', { cause: 400 });
+    const user = await UserModel.findByIdAndUpdate(req.user?._id, { bio }, { new: true });
+    if (!user) throw new Error('User not found!', { cause: 404 });
+    res.json({ message: "Bio updated successfully!", data: user });
+}

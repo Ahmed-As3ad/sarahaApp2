@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import * as messageService from './message.service.js'
 import { validate } from '../../middleware/validation.midleware.js'
-import { sendMessageValidation } from './message.validation.js'
+import { addMessageFavoriteValidation, sendMessageValidation } from './message.validation.js'
 import auth from '../../middleware/authentication.js'
 import { cloudFileUpload, fileType } from '../../utils/multer/cloud.multer.js'
 
@@ -10,4 +10,7 @@ router.post('/:receiverId/send', cloudFileUpload({ validation: fileType.image })
 
 router.post('/:receiverId/sender', auth(), cloudFileUpload({ validation: fileType.image }).single('attachment'), validate(sendMessageValidation), messageService.sendMessage)
 router.get('/messages', auth(), messageService.getMessages)
+router.post('/favorites', auth(), validate(addMessageFavoriteValidation), messageService.addMessageFavorite)
+router.get('/favorites', auth(), messageService.getFavoriteMessages)
+
 export default router

@@ -20,7 +20,11 @@ const MessageSchema = mongoose.Schema({
     senderId: {
         type: mongoose.Schema.ObjectId,
         ref: "User"
-    }
+    },
+    favorites: [{
+        type: mongoose.Schema.ObjectId,
+        ref: "User"
+    }]
 }, {
     timestamps: true
 })

@@ -35,3 +35,29 @@ export const getMessages = async (req, res, next) => {
         throw new Error(error, { cause: 500 })
     }
 }
+
+export const addMessageFavorite = async (req, res, next) => {
+    try {
+        const { messageId } = req.body;
+        if (!messageId) {
+            return res.status(400).json({ error: "Message ID is required." });
+        }
+        const message = await MessageModel.findById(messageId);
+        if (!message) {
+            return res.status(404).json({ error: "Message not found." });
+        }
+        message.favorites.push(req.user?._id);
+        await message.save();
+        res.status(200).json({ message: "Message added to favorites successfully.", data: message });
+    } catch (error) {
+        throw new Error(error, { cause: 500 })
+    }
+}
+export const getFavoriteMessages = async (req, res, next) => {
+    try {
+        const messages = await MessageModel.find({ favorites: req.user?._id });
+        res.status(200).json({ message: "Favorite messages retrieved successfully", data: messages });
+    } catch (error) {
+        throw new Error(error, { cause: 500 })
+    }
+}

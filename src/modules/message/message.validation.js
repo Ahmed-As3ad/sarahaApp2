@@ -28,3 +28,14 @@ export const sendMessageValidation = {
         size: generalFeilds.size.required()
     }))
 }
+export const addMessageFavoriteValidation = {
+    body: Joi.object().keys({
+        messageId: Joi.string().custom((value, helper) => {
+            if (!Types.ObjectId.isValid(value)) {
+                return helper.message('In-valid Message ID!');
+            }
+            return value;
+        }).required()
+    })
+}
+

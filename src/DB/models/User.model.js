@@ -42,6 +42,10 @@ const userSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    bio: {
+        type: String,
+        required: true
+    },
     role: {
         type: String,
         enum: Object.values(roleEnum),

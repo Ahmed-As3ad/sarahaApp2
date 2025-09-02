@@ -57,3 +57,14 @@ export const resetPassword = {
         otp:generalFeilds.otp.required()
     }).required()
 }
+
+export const searchUserName = {
+    query: Joi.object({
+        username: Joi.string().min(2).max(30).required()
+    })
+}
+export const setBio = {
+    body: Joi.object({
+        bio: Joi.string().min(2).max(500).required()
+    })
+}
