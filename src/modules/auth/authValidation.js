@@ -4,6 +4,7 @@ import { generalFeilds } from "../../middleware/validation.midleware.js";
 export const signup = {
     body: Joi.object({
         name: generalFeilds.name.required(),
+        userName: generalFeilds.userName.required(),
         email: generalFeilds.email.required(),
         Password: generalFeilds.Password.required(),
         cPassword: Joi.string().valid(Joi.ref('Password')).required(),

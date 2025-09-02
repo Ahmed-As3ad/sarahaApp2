@@ -12,7 +12,7 @@ export const typesEnum = {
 }
 
 export const signUp = async (req, res, next) => {
-    const { name, email, Password, cPassword, Phone, DOB } = req.body
+    const { name, userName, email, Password, cPassword, Phone, DOB } = req.body
     if (Password !== cPassword) {
         throw new Error("confirm Password didn't match Password");
 
@@ -20,12 +20,15 @@ export const signUp = async (req, res, next) => {
     if (await UserModel.findOne({ email })) {
         throw new Error("User already Exist!", { cause: 409 });
     }
+    if (await UserModel.findOne({ userName })) {
+        throw new Error("User Name already Exist!", { cause: 409 });
+    }
     const hashPassword = generateHash({ password: Password })
     const cryptoPhone = generateCrypto({ phone: Phone })
 
     const otp = customAlphabet('1234567890', 6)()
     const confirmEmailOTP = generateHash({ password: otp })
-    const newUser = await UserModel.create({ name, email, confirmEmailOTP, Password: hashPassword, Phone: cryptoPhone, DOB });
+    const newUser = await UserModel.create({ name, userName, email, confirmEmailOTP, Password: hashPassword, Phone: cryptoPhone, DOB });
 
     emailEvent.emit("confirm-Email", {
         to: email,
@@ -64,12 +67,12 @@ export const Login = async (req, res, next) => {
     const signature = Signatures({ signatureKey: user.role != roleEnum.user ? typesEnum.Admin : typesEnum.bearer })
     const jwtid = nanoid()
     const access_token = generateToken({
-        payload: { id: user._id,email: user.email, role: user.role },
+        payload: { id: user._id, email: user.email, role: user.role },
         secretKey: signature.accessSignature,
         options: { expiresIn: +process.env.ACCESS_EXPIRES_IN || '1hr', jwtid }
     });
     const refresh_token = generateToken({
-        payload: { id: user._id,email: user.email, role: user.role },
+        payload: { id: user._id, email: user.email, role: user.role },
         secretKey: signature.refreshSignature,
         options: { expiresIn: +process.env.REFRESH_EXPIRES_IN || '7d' }
     });
