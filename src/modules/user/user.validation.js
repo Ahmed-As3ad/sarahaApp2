@@ -60,7 +60,7 @@ export const resetPassword = {
 
 export const searchUserName = {
     query: Joi.object({
-        username: Joi.string().min(2).max(30).required()
+        username: Joi.string().min(1).max(30).optional().allow('')
     })
 }
 export const setBio = {

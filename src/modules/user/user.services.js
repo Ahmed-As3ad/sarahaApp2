@@ -181,10 +181,25 @@ export const changeProfileImage = async (req, res, next) => {
 
 export const searchUserName = async (req, res, next) => {
     const { username } = req.query;
-    if (!username) throw new Error('Username is required!', { cause: 400 });
-    const user = await UserModel.findOne({ username }).select('name profileImage bio role gender');
-    if (!user) throw new Error('User not found!', { cause: 404 });
-    res.json({ message: "User found!", data: user });
+    
+    if (!username || username.trim() === '') {
+        return res.json({ message: "Please enter a username to search", data: [] });
+    }
+    
+    const users = await UserModel.find({ 
+        $or: [
+            { username: { $regex: username.trim(), $options: 'i' } },
+            { name: { $regex: username.trim(), $options: 'i' } }
+        ],
+        confirmedEmail: true,
+        deletedAt: { $exists: false }
+    }).select('username name profileImage bio role gender').limit(10);
+    
+    if (!users.length) {
+        return res.json({ message: "No users found!", data: [] });
+    }
+    
+    res.json({ message: "Users found!", data: users });
 }
 
 export const setBio = async (req, res, next) => {
