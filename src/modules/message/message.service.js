@@ -14,12 +14,18 @@ export const sendMessage = async (req, res, next) => {
         if (!receiver) {
             return res.status(404).json({ error: "Receiver not found." });
         }
-        const { public_id, secure_url } = await fileUpload({ file: req.file, path: `messages/${req.params.receiverId}` });
+        
+        let attachment = null;
+        if (req.file) {
+            const { public_id, secure_url } = await fileUpload({ file: req.file, path: `messages/${req.params.receiverId}` });
+            attachment = { public_id, secure_url };
+        }
+        
         const newMessage = await MessageModel.create({
             content,
             senderId: req.user?._id,
             receiverId,
-            attachment: { public_id, secure_url }
+            attachment
         });
         res.status(201).json({ message: "Message sent successfully", data: newMessage });
     } catch (error) {
