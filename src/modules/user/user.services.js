@@ -193,7 +193,7 @@ export const searchUserName = async (req, res, next) => {
         ],
         confirmedEmail: true,
         deletedAt: { $exists: false }
-    }).select('username name profileImage bio role gender').limit(10);
+    }).select('userName name profileImage bio role gender').limit(10);
     
     if (!users.length) {
         return res.json({ message: "No users found!", data: [] });
