@@ -1,12 +1,5 @@
 import mongoose from "mongoose";
-export const ReactionEnum = {
-    LIKE: "ThumbsUp",
-    LOVE: "HandHeart",
-    HAHA: "Laugh",
-    ANGERY: "Angry",
-    SAD: "HeartCrack",
-    REMOVE: "HeartMinus"
-}
+
 const MessageSchema = mongoose.Schema({
     content: {
         type: String,
@@ -16,8 +9,7 @@ const MessageSchema = mongoose.Schema({
     },
     attachment: { public_id: String, secure_url: String },
     Reaction:{
-        type: String,
-        enum: Object.values(ReactionEnum)
+        type: String
     },
     deletedBy: {
         type: mongoose.Schema.ObjectId,
