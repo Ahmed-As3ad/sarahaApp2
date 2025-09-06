@@ -39,16 +39,6 @@ export const addMessageFavoriteValidation = {
     })
 }
 
-export const getFavoriteMessagesValidation = {
-    params: Joi.object({
-        userId: Joi.string().custom((value, helper) => {
-            if (!Types.ObjectId.isValid(value)) {
-                return helper.message('In-valid User ID!');
-            }
-            return value;
-        }).required()
-    })
-}
 export const removeMessageFavoriteValidation = {
     body: Joi.object().keys({
         messageId: Joi.string().custom((value, helper) => {
