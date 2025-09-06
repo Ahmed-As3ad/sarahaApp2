@@ -42,7 +42,7 @@ export const Signatures = ({ signatureKey = typesEnum.bearer } = {}) => {
 
 export const decodeToken = async ({ next, authorization = "", tokenType = tokenTypesEnum.access, refreshToken = null } = {}) => {
     const [bearer, token] = authorization.split(" ") || [];
-    console.log({ bearer, token });
+    // console.log({ bearer, token });
 
     if (!bearer || !token) {
         throw new Error("In-valid Token format", { cause: 401 });
