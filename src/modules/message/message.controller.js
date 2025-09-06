@@ -12,6 +12,6 @@ router.delete('/:messageId', auth(), validate(removeMessageValidation), messageS
 router.get('/messages', auth(), messageService.getMessages)
 router.post('/favorites', auth(), validate(addMessageFavoriteValidation), messageService.addMessageFavorite)
 router.get('/favorites', auth(), messageService.getFavoriteMessages)
-router.delete('/favorites', auth(), validate(removeMessageFavoriteValidation), messageService.removeMessageFavorite)
+router.delete('/favorites/:messageId', auth(), validate(removeMessageFavoriteValidation), messageService.removeMessageFavorite)
 
 export default router
