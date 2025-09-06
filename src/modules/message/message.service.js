@@ -78,3 +78,15 @@ export const removeMessageFavorite = async (req, res, next) => {
         throw new Error(error, { cause: 500 })
     }
 }
+export const removeMessage = async (req, res, next) => {
+    try {
+        const { messageId } = req.params;
+        const message = await MessageModel.findByIdAndDelete(messageId);
+        if (!message) {
+            return res.status(404).json({ error: "Message not found." });
+        }
+        res.status(200).json({ message: "Message deleted successfully." });
+    } catch (error) {
+        throw new Error(error, { cause: 500 })
+    }
+}

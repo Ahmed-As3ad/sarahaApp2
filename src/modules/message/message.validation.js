@@ -49,3 +49,13 @@ export const removeMessageFavoriteValidation = {
         }).required()
     })
 }
+export const removeMessageValidation = {
+    params: Joi.object({
+        messageId: Joi.string().custom((value, helper) => {
+            if (!Types.ObjectId.isValid(value)) {
+                return helper.message('In-valid Message ID!');
+            }
+            return value;
+        }).required()
+    })
+}
