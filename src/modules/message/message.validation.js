@@ -2,7 +2,7 @@ import Joi from 'joi';
 import { Types } from 'mongoose';
 import { fileType } from '../../utils/multer/multer.utli.js';
 import { generalFeilds } from '../../middleware/validation.midleware.js';
-import { ReactionEnum } from '../../DB/models/Message.model.js';
+
 
 export const sendMessageValidation = {
     params: Joi.object({
@@ -70,7 +70,7 @@ export const reactMessageValidation = {
         }).required()
     }),
     body: Joi.object().keys({
-        reaction: Joi.string().valid(...Object.values(ReactionEnum)).required()
+        reaction: Joi.string().required()
     })
 }
 export const removeReactMessageValidation = {
