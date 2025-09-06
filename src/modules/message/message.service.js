@@ -69,7 +69,7 @@ export const getFavoriteMessages = async (req, res, next) => {
 }
 export const removeMessageFavorite = async (req, res, next) => {
     try {
-        const {messageId} = req.body;
+        const {messageId} = req.params;
         const message = await MessageModel.findById(messageId);
         message.favorites.pull(req.user?._id);
         await message.save();
