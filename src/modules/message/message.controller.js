@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import * as messageService from './message.service.js'
 import { validate } from '../../middleware/validation.midleware.js'
-import { addMessageFavoriteValidation, getFavoriteMessagesValidation, removeMessageFavoriteValidation, sendMessageValidation } from './message.validation.js'
+import { addMessageFavoriteValidation, removeMessageFavoriteValidation, sendMessageValidation } from './message.validation.js'
 import auth from '../../middleware/authentication.js'
 import { cloudFileUpload, fileType } from '../../utils/multer/cloud.multer.js'
 
