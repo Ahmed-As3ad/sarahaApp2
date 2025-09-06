@@ -13,5 +13,7 @@ router.get('/messages', auth(), messageService.getMessages)
 router.post('/favorites', auth(), validate(addMessageFavoriteValidation), messageService.addMessageFavorite)
 router.get('/favorites', auth(), messageService.getFavoriteMessages)
 router.delete('/favorites/:messageId', auth(), validate(removeMessageFavoriteValidation), messageService.removeMessageFavorite)
+router.patch('/:messageId/reaction', auth(), messageService.reactToMessage)
+router.patch('/:messageId/remove-reaction', auth(), messageService.removeMessageReaction)
 
 export default router

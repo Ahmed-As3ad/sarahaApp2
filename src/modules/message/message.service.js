@@ -90,3 +90,32 @@ export const removeMessage = async (req, res, next) => {
         throw new Error(error, { cause: 500 })
     }
 }
+export const reactToMessage = async (req, res, next) => {
+    try {
+        const {reactEmoji} = req.body;
+        const { messageId } = req.params;
+        const message = await MessageModel.findById(messageId);
+        if (!message) {
+            return res.status(404).json({ error: "Message not found." });
+        }
+        message.Reaction = reactEmoji;
+        await message.save();
+        res.status(200).json({ message: "Message reacted successfully.", data: message });
+    } catch (error) {
+        throw new Error(error, { cause: 500 })
+    }
+}
+export const removeMessageReaction = async (req, res, next) => {
+    try {
+        const { messageId } = req.params;
+        const message = await MessageModel.findById(messageId);
+        if (!message) {
+            return res.status(404).json({ error: "Message not found." });
+        }
+        message.Reaction = null;
+        await message.save();
+        res.status(200).json({ message: "Message reaction removed successfully.", data: message });
+    } catch (error) {
+        throw new Error(error, { cause: 500 })
+    }
+}

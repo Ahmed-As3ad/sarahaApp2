@@ -59,3 +59,26 @@ export const removeMessageValidation = {
         }).required()
     })
 }
+export const reactMessageValidation = {
+    params: Joi.object({
+        messageId: Joi.string().custom((value, helper) => {
+            if (!Types.ObjectId.isValid(value)) {
+                return helper.message('In-valid Message ID!');
+            }
+            return value;
+        }).required()
+    }),
+    body: Joi.object().keys({
+        reaction: Joi.string().valid(...Object.values(ReactionEnum)).required()
+    })
+}
+export const removeReactMessageValidation = {
+    params: Joi.object({
+        messageId: Joi.string().custom((value, helper) => {
+            if (!Types.ObjectId.isValid(value)) {
+                return helper.message('In-valid Message ID!');
+            }
+            return value;
+        }).required()
+    })
+}
