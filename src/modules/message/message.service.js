@@ -67,3 +67,14 @@ export const getFavoriteMessages = async (req, res, next) => {
         throw new Error(error, { cause: 500 })
     }
 }
+export const removeMessageFavorite = async (req, res, next) => {
+    try {
+        const {messageId} = req.body;
+        const message = await MessageModel.findById(messageId);
+        message.favorites.pull(req.user?._id);
+        await message.save();
+        res.status(200).json({ message: "Message removed from favorites successfully.", data: message });
+    } catch (error) {
+        throw new Error(error, { cause: 500 })
+    }
+}
