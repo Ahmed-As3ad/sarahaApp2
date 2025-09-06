@@ -3,6 +3,17 @@ import UserModel, { roleEnum } from "../../DB/models/User.model.js";
 import { emailEvent } from "../../utils/events/email.events.js";
 import { compare, generateHash, verifyCrypto } from "../../utils/security/hash.method.js";
 import { destroyFile, fileUpload } from "../../utils/multer/cloudinary.js";
+import { generateCredentials } from "../../utils/token.method.js";
+
+export const generateNewCredentials = async(req,res,next) => {
+    const user = await UserModel.findById(req.user._id);
+    if (!user) {
+        throw new Error("User not found!", { cause: 404 });
+    }
+
+    const Credentials = generateCredentials(user);
+    return res.status(200).json({ message: "New credentials generated successfully.", ...Credentials });
+}
 
 export const profile = async (req, res, next) => {
     const user = await UserModel.findById(req.user._id).select('name email confirmedEmail age role gender');

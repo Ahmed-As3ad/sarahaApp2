@@ -2,7 +2,7 @@ import tokenRevoke from "../../DB/models/Token.model.js";
 import UserModel, { roleEnum } from "../../DB/models/User.model.js"
 import { emailEvent } from "../../utils/events/email.events.js";
 import { compare, generateCrypto, generateHash } from "../../utils/security/hash.method.js";
-import { generateToken, Signatures } from "../../utils/token.method.js";
+import { generateCredentials, generateToken, Signatures } from "../../utils/token.method.js";
 import { customAlphabet, nanoid } from 'nanoid'
 
 
@@ -64,19 +64,8 @@ export const Login = async (req, res, next) => {
         throw new Error("You should verify Email First!", { cause: 409 });
     }
 
-    const signature = Signatures({ signatureKey: user.role != roleEnum.user ? typesEnum.Admin : typesEnum.bearer })
-    const jwtid = nanoid()
-    const access_token = generateToken({
-        payload: { id: user._id, email: user.email, role: user.role },
-        secretKey: signature.accessSignature,
-        options: { expiresIn: +process.env.ACCESS_EXPIRES_IN || '1hr', jwtid }
-    });
-    const refresh_token = generateToken({
-        payload: { id: user._id, email: user.email, role: user.role },
-        secretKey: signature.refreshSignature,
-        options: { expiresIn: +process.env.REFRESH_EXPIRES_IN || '7d' }
-    });
-    return res.json({ message: "logged Successfully.", access_token, refresh_token })
+    const Credentials = generateCredentials(user);
+    return res.status(200).json({ message: "logged Successfully.", ...Credentials })
 }
 
 export const confirmEmail = async (req, res, next) => {

@@ -7,9 +7,11 @@ import auth from "../../middleware/authentication.js";
 import { endpoint } from "./endpoint.js";
 import { fileType} from "../../utils/multer/multer.utli.js";
 import { cloudFileUpload } from "../../utils/multer/cloud.multer.js";
+import { tokenTypesEnum } from "../../utils/token.method.js";
 
 const router = Router()
 router.get('/profile{/:userId}', validate(profile), auth(), authorization({ accessRoles: [endpoint.profile] }), userService.profile)
+router.post('/refresh-token', auth({tokenType: tokenTypesEnum.refresh}), userService.generateNewCredentials)
 router.post('/profile-image', auth(), cloudFileUpload({ validation:fileType.image }).single('Image'), userService.changeProfileImage)
 router.get('/:userId/share', validate(profile), userService.shareProfile)
 router.delete('{/:userId}/freeze', auth(), validate(idValidation), userService.freezeAccount)
